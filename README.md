@@ -16,6 +16,22 @@ $ bower install idanen/x-counter
 <x-counter count="1" min="0" max="100"></x-counter>
 ```
 
+## Demo
+<!---
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="x-counter.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+```html
+<x-counter count="10" min="0" max="100"></x-counter>
+```
+
 ## Contributing
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
