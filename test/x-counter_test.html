@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>x-counter test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../x-counter.html">
+  </head>
+  <body>
+
+    <test-fixture id="BasicTestFixture">
+      <template>
+        <x-counter></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="ChangedPropertyTestFixture">
+      <template>
+        <x-counter count="5"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="InnerInputTestFixture">
+      <template>
+        <x-counter count="5"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="InnerInputChangeTestFixture">
+      <template>
+        <x-counter count="5"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="ChangedAttributeTestFixture">
+      <template>
+        <x-counter count="5"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="IncrementTestFixture">
+      <template>
+        <x-counter count="3"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="DecrementTestFixture">
+      <template>
+        <x-counter count="3"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="IncrementButtonTestFixture">
+      <template>
+        <x-counter count="3"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="DecrementButtonTestFixture">
+      <template>
+        <x-counter count="3"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="EventIncrementTestFixture">
+      <template>
+        <x-counter count="3"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="EventDecrementTestFixture">
+      <template>
+        <x-counter count="3"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="DecrementMinTestFixture">
+      <template>
+        <x-counter count="3" min="3"></x-counter>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="IncrementMaxTestFixture">
+      <template>
+        <x-counter count="3" max="3"></x-counter>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('x-counter', () => {
+
+        test('instantiating the element with default properties works', function() {
+          const element = fixture('BasicTestFixture');
+          assert.equal(element.count, 0);
+        });
+
+        test('instantiating the element with default properties works', function() {
+          const element = fixture('BasicTestFixture');
+          assert.equal(element.min, Number.MIN_SAFE_INTEGER);
+        });
+
+        test('instantiating the element with default properties works', function() {
+          const element = fixture('BasicTestFixture');
+          assert.equal(element.max, Number.MAX_SAFE_INTEGER);
+        });
+
+        test('instantiating the element with default properties works', function() {
+          const element = fixture('BasicTestFixture');
+          assert.equal(element.count, 0);
+        });
+
+        test('setting a property on the element works', function() {
+          // Create a test fixture
+          const element = fixture('ChangedPropertyTestFixture');
+          assert.equal(element.count, 5);
+        });
+
+        test('count reflects to the inner input', function() {
+          const element = fixture('InnerInputTestFixture');
+          const innerValue = element.shadowRoot.querySelector('input').value;
+          assert.equal(innerValue, 5);
+        });
+
+        test('changing inner input should change element prop', function() {
+          const element = fixture('InnerInputChangeTestFixture');
+          element.shadowRoot.querySelector('input').value = 9;
+          element.shadowRoot.querySelector('input').dispatchEvent(new CustomEvent('input'));
+          assert.equal(element.count, 9);
+        });
+
+        test('setting a property on the element works', function() {
+          const element = fixture('ChangedAttributeTestFixture');
+          element.setAttribute('count', 7);
+          assert.equal(element.count, 7);
+        });
+
+        test('incrementing works', function() {
+          const element = fixture('IncrementTestFixture');
+          element.increment();
+          assert.equal(element.count, 4);
+        });
+
+        test('decrementing works', function() {
+          const element = fixture('DecrementTestFixture');
+          element.decrement();
+          assert.equal(element.count, 2);
+        });
+
+        test('incrementing using inside button works', function() {
+          const element = fixture('IncrementButtonTestFixture');
+          element.shadowRoot.querySelector('#increment').dispatchEvent(new CustomEvent('click'));
+          assert.equal(element.count, 4);
+        });
+
+        test('decrementing using inside button works', function() {
+          const element = fixture('DecrementButtonTestFixture');
+          element.shadowRoot.querySelector('#decrement').dispatchEvent(new CustomEvent('tap'));
+          assert.equal(element.count, 2);
+        });
+
+        test('dispatching event when incrementing', function(done) {
+          const objWithListener = { listener: () => done() };
+          const listener = sinon.spy(objWithListener, 'listener');
+          const element = fixture('EventIncrementTestFixture');
+          element.addEventListener('change', listener);
+          element.increment();
+          sinon.assert.calledWithMatch(listener, { detail: { count: 4 } });
+        });
+
+        test('dispatching event when decrementing', function(done) {
+          const objWithListener = { listener: () => done() };
+          const listener = sinon.spy(objWithListener, 'listener');
+          const element = fixture('EventDecrementTestFixture');
+          element.addEventListener('change', listener);
+          element.decrement();
+          sinon.assert.calledWithMatch(listener, { detail: { count: 2 } });
+        });
+
+        test('min value should limit decrementing', function () {
+          const element = fixture('DecrementMinTestFixture');
+          element.decrement();
+          assert.equal(element.count, 3);
+        });
+
+        test('max value should limit incrementing', function () {
+          const element = fixture('IncrementMaxTestFixture');
+          element.increment();
+          assert.equal(element.count, 3);
+        });
+
+      });
+    </script>
+
+  </body>
+</html>
