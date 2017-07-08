@@ -5,7 +5,7 @@ A simple counter element
 
 ## Installation
 ```
-$ bower install idanen/x-counter
+$ bower install x-counter
 ```
 
 ## Usage
