@@ -12,5 +12,12 @@
   },
   "resolutions": {
     "polymer": "^2.0.0"
+  },
+  "authors": [
+    "Idan Entin <idanen@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/idanen/x-counter.git"
   }
 }
