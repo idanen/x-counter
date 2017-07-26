@@ -1,3 +1,12 @@
 .idea/
 build/
 bower_components/
+!dom-module.html
+!element-mixin.html
+!property-effects.html
+!boot.html
+!settings.html
+!mixin.html
+!case-map.html
+!style-gather.html
+!resolve-url.html
