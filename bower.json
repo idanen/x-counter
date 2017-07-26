@@ -2,6 +2,7 @@
   "name": "x-counter",
   "description": "A simple counter element",
   "main": "x-counter.html",
+  "version": "0.1.1",
   "homepage": "https://idanen.github.io/x-counter/",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0"
