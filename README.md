@@ -21,7 +21,7 @@ $ bower install x-counter
 ```
 <custom-element-demo>
   <template>
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="x-counter.html">
     <next-code-block></next-code-block>
   </template>
